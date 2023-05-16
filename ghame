@@ -1,0 +1,41 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <vector>
+
+int main() {
+    srand(static_cast<unsigned int>(time(0))); // Seed the random number generator
+
+    int answer = (rand() % 100) + 1; // Generate a random number between 1 and 100
+
+    std::cout << "The answer is between 1 and 100." << std::endl;
+
+    int guess;
+    int tries = 0; // Counter for the number of tries
+    std::vector<int> playerTries; // List of other players' tries
+    std::cout << "Please input a number: ";
+    std::cin >> guess;
+    tries++;
+    do {
+        if (guess == answer) {
+            std::cout << "Congratulations! Your guess is correct." << std::endl;
+            std::cout << "You took " << tries << " tries to guess the correct answer." << std::endl;
+
+            // Add the current player's tries to the list
+            playerTries.push_back(tries);
+
+            std::cout << "Other players' tries:" << std::endl;
+            for (size_t i = 0; i < playerTries.size(); i++) {
+                std::cout << "Player " << i + 1 << ": " << playerTries[i] << " tries" << std::endl;
+            }
+        }
+        else if (guess < answer) {
+            std::cout << "Sorry, your guess is too low. The answer is between " << guess + 1 << " and 100. Try a higher number." << std::endl;
+        }
+        else {
+            std::cout << "Sorry, your guess is too high. The answer is between 1 and " << guess - 1 << ". Try a lower number." << std::endl;
+        }
+    } while (guess != answer);
+
+    return 0;
+}
